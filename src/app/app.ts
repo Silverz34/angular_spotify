@@ -13,14 +13,17 @@ export class App implements OnInit{
 
   constructor(
     private _spotifyLoginService: SpotifyLoginService,
-    private _sporifyPlaylistService: SpotifyPlaylistService
+    private _spotifyPlaylistService: SpotifyPlaylistService
   ) {}
 
 
   ngOnInit(): void {
-    this._sporifyPlaylistService.getPlaylist().subscribe(
-      (data) => console.log(data)
-    );
+    this._spotifyLoginService.getToken().subscribe();
+    console.log("ESTE ES UN LOG DE CONTROL")
+  }
+
+  doRequest(){
+    this._spotifyPlaylistService.getPlaylist().subscribe((data)=>console.log(data));
   }
 
 }
