@@ -1,5 +1,5 @@
-import { bd_conection, spotify_environments } from "./environment.local";
+import { spotify_environments } from "../config/environment";
 
-export const environments = {
+export const environment = {
     ...spotify_environments
-}
+};
