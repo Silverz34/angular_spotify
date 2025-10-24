@@ -51,9 +51,19 @@
 :host(.main) .card-song-img{
     width: 300px;
     height: 300px;
-    border-radius: 20px;
-    box-shadow: 5px 5px 5px #222831;
+    border-radius: 200px;
     margin-bottom: 20px;
+    animation: spin 4s linear infinite;
+    box-shadow: 0 0 30px rgba(255, 0, 221, 0.3);
+}
+@keyframes spin {
+    from{
+        transform: rotate(0deg)
+    }
+    to{
+        transform: rotate(360deg);
+    }
+    
 }
 
 :host(.main) .card-song-details{
@@ -72,3 +82,9 @@
     font-size: 1.5em;
 }
 
+.card-song-details h2,
+.card-song-details h3 {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}
