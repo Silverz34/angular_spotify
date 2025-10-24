@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SpotifyPlaylistResponse } from '../../interfaces/spotify-api/spotify-playlist-response';
+import {environment} from '../../../environments/environment.development'
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +15,9 @@ export class SpotifyPlaylistService {
   ){ }
 
   getPlaylist(): Observable<SpotifyPlaylistResponse>{
-
-    return this._http.get<SpotifyPlaylistResponse>(
-      "https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n"
-    )
+    
+    const url = `${environment.URL_API}/playlists/3cEYpjA9oz9GiPac4AsH4n`;
+    return this._http.get<SpotifyPlaylistResponse>(url)
 
   }
   

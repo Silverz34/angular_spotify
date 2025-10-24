@@ -1,7 +1,5 @@
 export interface SpotifyImageResponse {
-
-    width: number,
-    height: number,
-    href: string
-
+    url: string; 
+    width: number | null;
+    height: number | null;
 }
