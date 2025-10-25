@@ -11,9 +11,8 @@ import { Song } from '../interfaces/song';
   }
 })
 export class SongInfo{
-  display_mode = input.required<string>({ alias: 'displayMode'});
-  song = input.required<Song>();
-
+  display_mode = input.required<string>({ alias: 'displayMode'}); 
+  song = input<Song | null>(null);
   displayMode(){
     return this.display_mode();
   }

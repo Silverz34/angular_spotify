@@ -9,6 +9,6 @@ import { Song } from '../interfaces/song';
 })
 export class Playlist {
 
-  playlist = input.required<Song[]>();
+  playlist = input<Song[] | null>(null);
 
 }

@@ -9,7 +9,7 @@ import { catchError, switchMap, throwError, Observable, of } from 'rxjs';
 let isRefreshing = false;
 
 export const addAuthHeaderInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
-  const SPOTIFY_API_URL = 'api.spotify.com/v1'; 
+  const SPOTIFY_API_URL = 'https://api.spotify.com/v1'; 
 
   if (!req.url.startsWith(SPOTIFY_API_URL)) {  
     return next(req);
@@ -28,12 +28,13 @@ export const addAuthHeaderInterceptor: HttpInterceptorFn = (req: HttpRequest<unk
 
     if (!isRefreshing) {
       isRefreshing = true;
-      return _loginService.getToken().pipe(
+      return _loginService.getToken().pipe( // <-- OBTIENE EL TOKEN NUEVO
         switchMap(() => {
           isRefreshing = false;
           const newToken = _cookieService.getCookieValue('access_token');
-          const newReq = addTokenHeader(req, newToken);
-          return next(newReq);
+          console.log("TOKEN ANTES DE REINTENTO:", newToken);
+          const newReq = addTokenHeader(req, newToken); 
+          return next(newReq); // <-- REINTENTA
         }),
         catchError(err => {
           isRefreshing = false;
@@ -56,6 +57,7 @@ export const addAuthHeaderInterceptor: HttpInterceptorFn = (req: HttpRequest<unk
         switchMap(() => {
           isRefreshing = false;
           const newToken = _cookieService.getCookieValue('access_token');
+          console.log("TOKEN ANTES DE REINTENTO:", newToken);
           const reattemptReq = addTokenHeader(req, newToken); 
           return next(reattemptReq);
         }),

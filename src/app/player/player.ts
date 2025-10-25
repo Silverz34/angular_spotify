@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+// src/app/player/player.ts (SIMPLIFICADO Y MODULARIZADO)
+
+import { Component, OnInit } from '@angular/core';
+import { PlayerData } from '../services/player-data';
+import { Observable } from 'rxjs';
 import { Song } from '../interfaces/song';
 
 @Component({
@@ -7,60 +11,25 @@ import { Song } from '../interfaces/song';
   templateUrl: './player.html',
   styleUrl: './player.css'
 })
-export class Player {
+export class Player implements OnInit { 
 
-  song = {
-    cover: "https://picsum.photos/200",
-    name: "CANCION 1",
-    artist: "ARTISTA 1"
+  // Observables que el HTML puede usar con el pipe 'async' (¡CÓDIGO MUY LIMPIO!)
+  public currentSong$!: Observable<Song>;
+  public playlist$!: Observable<Song[]>;
+  
+  // Inyectamos el nuevo servicio orquestador
+  constructor(
+    private _playerData: PlayerData
+  ){
+    console.log("COMPONENTE PLAYER CREADO");
   }
 
-  playlist: Song[] = [
-    {
-      cover: "https://picsum.photos/201",
-      name: "CANCION 1 ESTE TEXTO ES DEMASIADO LARGO",
-      artist: "ARTISTA 1"
-    },
-    {
-      cover: "https://picsum.photos/202",
-      name: "CANCION 2",
-      artist: "ARTISTA 1"
-    },
-    {
-      cover: "https://picsum.photos/203",
-      name: "CANCION 3",
-      artist: "ARTISTA 1"
-    },
-    {
-      cover: "https://picsum.photos/204",
-      name: "CANCION 4",
-      artist: "ARTISTA 1"
-    },
-    {
-      cover: "https://picsum.photos/205",
-      name: "CANCION 5",
-      artist: "ARTISTA 1"
-    },
-    {
-      cover: "https://picsum.photos/206",
-      name: "CANCION 6",
-      artist: "ARTISTA 1"
-    },
-    {
-      cover: "https://picsum.photos/207",
-      name: "CANCION 7",
-      artist: "ARTISTA 1"
-    },
-    {
-      cover: "https://picsum.photos/208",
-      name: "CANCION 8",
-      artist: "ARTISTA 1"
-    },
-  ];
+  ngOnInit(): void {
+    // 1. Conectar las propiedades del componente a los Observables del servicio
+    this.currentSong$ = this._playerData.currentSong$;
+    this.playlist$ = this._playerData.playlist$;
 
-  constructor(){
-    console.log("COMPONENTE APP CREADO");
+    // 2. Llamar a la función de carga de datos inicial.
+    this._playerData.loadInitialData();
   }
-
-
 }

@@ -10,7 +10,7 @@ import { SpotifySearchResponse } from '../interfaces/spotify-api/spotify-search-
 export class SpotifySearch {
   private baseUrl = environment.URL_API;
   constructor(private http: HttpClient) { }
-  search(query: string, types: string[] = ['track', 'artist']): Observable<SpotifySearchResponse> {
+  search(query: string, types: string[] = ['album', 'artist']): Observable<SpotifySearchResponse> {
    
     if (!query) {
       return of({} as SpotifySearchResponse); 

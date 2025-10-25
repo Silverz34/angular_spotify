@@ -15,6 +15,7 @@ import { Headebar } from './headebar/headebar';
 @NgModule({
   declarations: [
     App,
+    Player,
     SongInfo,
     AudioController,
     Playlist,
